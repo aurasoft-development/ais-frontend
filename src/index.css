@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  :root {
+    /* Aura Safety Color Palette */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Primary - Aura Deep Fire Red */
+    --primary: 356 85% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm Neutral/Smoke */
+    --secondary: 0 5% 96%;
+    --secondary-foreground: 0 0% 10%;
+
+    /* Muted */
+    --muted: 0 5% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Accent - Aura Flame Gold */
+    --accent: 35 100% 55%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 85% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 356 85% 35%;
+
+    --radius: 0.5rem;
+
+    /* Custom Colors - Fire & Safety */
+    --safety-yellow: 48 100% 50%;
+    --safety-orange: 20 100% 55%;
+    --industrial-blue: 215 90% 25%;
+    /* Keeping for contrast/industrial feel */
+    --industrial-blue-light: 215 80% 35%;
+    --industrial-gray: 0 0% 25%;
+    /* Dark Charcoal */
+    --success: 142 76% 36%;
+    --whatsapp: 142 70% 45%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(356 85% 35%) 0%, hsl(0 90% 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(35 100% 55%) 0%, hsl(20 100% 55%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 5% 98%) 100%);
+
+    /* Sidebar */
+    --sidebar-background: 0 5% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 356 85% 35%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 20 20% 96%;
+    --sidebar-accent-foreground: 356 85% 35%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 356 85% 35%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 80% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 35 100% 55%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 80% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80;
+  }
+
+  .bg-hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .bg-accent-gradient {
+    background: var(--gradient-accent);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
