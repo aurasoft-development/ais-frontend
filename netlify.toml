@@ -1,0 +1,9 @@
+[build]
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "out"
+
+[context.production]
+  command = "npm install --legacy-peer-deps && npm run build"
+
+[context.deploy-preview]
+  command = "npm install --legacy-peer-deps && npm run build"
