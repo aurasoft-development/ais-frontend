@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'export',
     reactStrictMode: true,
     transpilePackages: ['lucide-react'], // Sometimes needed for icons
     images: {
