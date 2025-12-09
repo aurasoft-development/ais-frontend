@@ -11,7 +11,7 @@ export default function Home() {
         {
             icon: Shield,
             title: "Authorized Bata Dealer",
-            description: "Genuine Bata Industrial products guaranteed",
+            description: "Genuine Bata Industrials products guaranteed",
         },
         {
             icon: Package,
@@ -25,7 +25,7 @@ export default function Home() {
         },
         {
             icon: Truck,
-            title: "Same-Day Delivery",
+            title: "Fast Delivery",
             description: "Fast local delivery across service areas",
         },
         {

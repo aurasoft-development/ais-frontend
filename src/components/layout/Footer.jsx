@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Shield, MapPin, Phone, Clock } from "lucide-react";
+import { Shield, MapPin, Phone, Clock, Truck } from "lucide-react";
 import { generalWhatsAppLink } from "@/data/products";
 const Footer = () => {
   return (<footer className="bg-zinc-950 text-zinc-100 border-t border-zinc-800">
@@ -88,21 +88,48 @@ const Footer = () => {
               </span>
             </li>
           </ul>
-        </div>
-      </div>
-    </div>
 
-    {/* Service Areas Strip */}
-    <div className="bg-accent text-accent-foreground py-3 border-y border-yellow-600/20">
-      <div className="container mx-auto px-4 text-center">
-        <p className="text-sm font-medium">
-          🚚 Serving Pan India | Fast Delivery in Ujjain, Indore, Dewas, Ratlam & Neemuch
-        </p>
-      </div>
-    </div>
+          {/* New Golden Rectangle (Compact) */}
+          <div className="mt-8 rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+            {/* Header */}
+            <div className="bg-black/40 text-white text-center text-[10px] font-bold py-1.5 uppercase tracking-wider backdrop-blur-sm">
+              Serving PAN India
+            </div>
+            {/* Body */}
+            <div className="bg-gradient-to-r from-yellow-500 to-amber-600 p-4 flex items-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-white/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Left: Truck */}
+              <div className="w-1/3 flex justify-center border-r border-black/10 pr-3 relative z-10">
+                <Truck className="w-11 h-11 text-white drop-shadow-md" strokeWidth={1.5} fill="currentColor" fillOpacity={0.15} />
+              </div>
+
+              {/* Right: Content */}
+              <div className="w-2/3 pl-3 text-center text-white relative z-10">
+                <div className="text-base font-black italic tracking-wide drop-shadow-sm uppercase leading-none mb-1.5">
+                  FAST DELIVERY
+                </div>
+                {/* Divider */}
+                <div className="flex items-center gap-2 mb-1.5 opacity-90">
+                  <div className="h-px bg-white/40 flex-1"></div>
+                  <div className="w-5 h-5 rounded-full border border-white/40 flex items-center justify-center text-[8px] font-bold bg-white/10 backdrop-blur-sm">
+                    IN
+                  </div>
+                  <div className="h-px bg-white/40 flex-1"></div>
+                </div>
+                <div className="text-[10px] font-bold leading-tight opacity-95">
+                  Ujjain, Indore, Dewas <br /> Ratlam & Neemuch
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> {/* Closes grid */}
+    </div> {/* Closes container */}
 
     {/* Bottom Bar */}
-    <div className="bg-black py-6">
+    <div className="bg-black py-8 border-t border-zinc-900">
       <div className="container mx-auto px-4 text-center">
         <p className="text-sm text-zinc-500">
           © {new Date().getFullYear()} Aurasafety Industrial Solutions. All rights reserved.
