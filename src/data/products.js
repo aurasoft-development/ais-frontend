@@ -6,6 +6,12 @@ import safetyGoggles from "@/assets/products/safety-goggles.jpg";
 import fireExtinguisher from "@/assets/products/fire-extinguisher.jpg";
 import nitrileGloves from "@/assets/products/nitrile-gloves.jpg";
 import ledWorkLight from "@/assets/products/led-work-light.jpg";
+import bataSafetyShoes from "@/assets/products/Shoes/bata-safety-shoes.jpg";
+import cutResistantGloves from "@/assets/products/Gloves/cut-resistant-gloves.jpg";
+import rigidSafetyHelmet from "@/assets/products/Helmet/rigid-safety-helmet.jpg";
+import reflectiveJacket from "@/assets/products/jackets-vests/reflective-jacket.jpg";
+import n95Mask from "@/assets/products/masks-caps/n95-mask.jpg";
+import bouffantCap from "@/assets/products/masks-caps/bouffant-cap.jpg";
 export const categories = [
     { id: "safety-shoes", name: "Safety Shoes & Footwear", icon: "👟" },
     { id: "gloves", name: "Gloves", icon: "🧤" },
@@ -16,9 +22,9 @@ export const categories = [
 ];
 export const products = [
     // Safety Shoes & Footwear
-    { id: "bata-safety-shoes", name: "Bata Safety Shoes", description: "Premium steel toe safety shoes from authorized Bata dealer", category: "safety-shoes", image: safetyShoes, featured: true },
-    { id: "bata-steel-toe", name: "Bata Industrial Safety Shoes — Steel Toe", description: "Heavy-duty steel toe protection for industrial environments", category: "safety-shoes", image: safetyShoes, featured: true },
-    { id: "bata-composite-toe", name: "Bata Industrial Safety Shoes — Composite Toe", description: "Lightweight composite toe for maximum comfort and safety", category: "safety-shoes", image: safetyShoes, featured: true },
+    { id: "bata-safety-shoes", name: "Bata Safety Shoes", description: "Premium steel toe safety shoes from authorized Bata dealer", category: "safety-shoes", image: bataSafetyShoes, featured: true },
+    { id: "bata-steel-toe", name: "Bata Industrial Safety Shoes — Steel Toe", description: "Heavy-duty steel toe protection for industrial environments", category: "safety-shoes", image: bataSafetyShoes, featured: true },
+    { id: "bata-composite-toe", name: "Bata Industrial Safety Shoes — Composite Toe", description: "Lightweight composite toe for maximum comfort and safety", category: "safety-shoes", image: bataSafetyShoes, featured: true },
     { id: "low-ankle-safety-shoe", name: "Low Ankle Safety Shoe", description: "Comfortable low-cut design for everyday industrial use", category: "safety-shoes", image: safetyShoes },
     { id: "udyogi-safety-shoes", name: "Udyogi Safety Shoes", description: "Reliable industrial safety footwear", category: "safety-shoes", image: safetyShoes },
     { id: "allen-cooper-safety", name: "Allen Cooper Safety Shoes", description: "Premium leather safety shoes with durability", category: "safety-shoes", image: safetyShoes },
@@ -43,7 +49,7 @@ export const products = [
     { id: "bata-zappy-oxford", name: "Safety Shoes Bata Zappy Oxford", description: "Oxford style with Zappy comfort", category: "safety-shoes", image: safetyShoes },
     { id: "sports-safety-shoes", name: "Sports Safety Shoes", description: "Athletic safety for active work", category: "safety-shoes", image: safetyShoes },
     // Gloves
-    { id: "cut-resistant-gloves", name: "Cut-Resistant Work Gloves", description: "High-performance cut protection for industrial tasks", category: "gloves", image: safetyGloves, featured: true },
+    { id: "cut-resistant-gloves", name: "Cut-Resistant Work Gloves", description: "High-performance cut protection for industrial tasks", category: "gloves", image: cutResistantGloves, featured: true },
     { id: "nitrile-disposable", name: "Nitrile Disposable Gloves (Box)", description: "Premium nitrile gloves for hygiene and protection", category: "gloves", image: nitrileGloves, featured: true },
     { id: "abrigo-hand-gloves", name: "Abrigo Hand Gloves", description: "Multi-purpose industrial hand protection", category: "gloves", image: safetyGloves },
     { id: "yellow-safety-gloves", name: "Yellow Safety Gloves", description: "High-visibility yellow work gloves", category: "gloves", image: safetyGloves },
@@ -54,7 +60,7 @@ export const products = [
     { id: "11-inch-nitrile", name: "11 Inch Nitrile Gloves", description: "Extended length nitrile protection", category: "gloves", image: nitrileGloves },
     { id: "aerolite-cut-pro", name: "Gray Nylon Aerolite Cut Pro Hand Gloves", description: "Advanced cut-resistant technology", category: "gloves", image: safetyGloves },
     // Helmets & Head Protection
-    { id: "rigid-safety-helmet", name: "Industrial Safety Helmet — Rigid", description: "Heavy-duty rigid helmet for construction sites", category: "helmets", image: safetyHelmet, featured: true },
+    { id: "rigid-safety-helmet", name: "Industrial Safety Helmet — Rigid", description: "Heavy-duty rigid helmet for construction sites", category: "helmets", image: rigidSafetyHelmet, featured: true },
     { id: "frp-safety-helmet", name: "FRP Safety Helmet", description: "Fiberglass reinforced plastic helmet", category: "helmets", image: safetyHelmet },
     { id: "concord-safety-helmet", name: "Concord Safety Helmet", description: "Premium Concord brand protection", category: "helmets", image: safetyHelmet },
     { id: "yellow-industrial-helmet", name: "Yellow Industrial Safety Helmets", description: "High-visibility yellow hard hats", category: "helmets", image: safetyHelmet },
@@ -64,11 +70,11 @@ export const products = [
     { id: "construction-helmet", name: "Construction Safety Helmet", description: "Site-specific head protection", category: "helmets", image: safetyHelmet },
     { id: "industrial-helmets", name: "Industrial Safety Helmets", description: "General industrial head protection", category: "helmets", image: safetyHelmet },
     // Masks, Caps & Wearables
-    { id: "disposable-head-caps", name: "Disposable Head Caps", description: "Hygienic disposable head covers for clean environments", category: "masks-caps", image: safetyHelmet, featured: true },
-    { id: "n95-mask", name: "Certified N95 Mask", description: "N95 certified respiratory protection", category: "masks-caps", image: safetyHelmet },
-    { id: "bouffant-cap", name: "Disposable Bouffant Cap", description: "Single-use bouffant hair covers", category: "masks-caps", image: safetyHelmet },
+    { id: "disposable-head-caps", name: "Disposable Head Caps", description: "Hygienic disposable head covers for clean environments", category: "masks-caps", image: bouffantCap, featured: true },
+    { id: "n95-mask", name: "Certified N95 Mask", description: "N95 certified respiratory protection", category: "masks-caps", image: n95Mask },
+    { id: "bouffant-cap", name: "Disposable Bouffant Cap", description: "Single-use bouffant hair covers", category: "masks-caps", image: bouffantCap },
     // Jackets & Vests
-    { id: "reflective-jacket", name: "Reflective Safety Jacket", description: "High-visibility reflective jacket for road safety", category: "jackets-vests", image: safetyJacket, featured: true },
+    { id: "reflective-jacket", name: "Reflective Safety Jacket", description: "High-visibility reflective jacket for road safety", category: "jackets-vests", image: reflectiveJacket, featured: true },
     { id: "reflective-vest", name: "Reflective Safety Vest Jacket", description: "Lightweight reflective vest", category: "jackets-vests", image: safetyJacket },
     { id: "construction-jacket", name: "Construction Safety Jackets", description: "Heavy-duty construction wear", category: "jackets-vests", image: safetyJacket },
     { id: "security-jacket", name: "Security Safety Jackets", description: "Professional security wear", category: "jackets-vests", image: safetyJacket },

@@ -101,7 +101,7 @@ export default function Home() {
                             Featured Safety Products
                         </h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Explore our range of premium industrial safety equipment from trusted brands
+                            Explore our range of premium industrial safety equipments from trusted brands
                         </p>
                     </div>
 

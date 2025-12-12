@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Search, Filter, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import ProductCard from "@/components/ProductCard";
@@ -12,6 +12,14 @@ const Products = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [showFilters, setShowFilters] = useState(false);
+    // Scroll to top of product list when category change
+    useEffect(() => {
+        const productSection = document.getElementById("products-start");
+        if (productSection) {
+            productSection.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [selectedCategory, searchQuery]);
+
     const filteredProducts = useMemo(() => {
         return products.filter((product) => {
             const matchesCategory = !selectedCategory || product.category === selectedCategory;
@@ -41,7 +49,7 @@ const Products = () => {
                 </div>
             </section>
 
-            <section className="py-8 md:py-12">
+            <section className="py-8 md:py-12" id="products-start">
                 <div className="container mx-auto px-4">
                     {/* Search and Filter Bar */}
                     <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -71,20 +79,30 @@ const Products = () => {
                             <div className="bg-card rounded-xl border border-border p-4 sticky top-24">
                                 <h3 className="font-display text-lg font-bold mb-4">Categories</h3>
                                 <div className="space-y-2">
-                                    <button onClick={() => setSelectedCategory(null)} className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${!selectedCategory
-                                        ? "bg-primary text-primary-foreground"
-                                        : "hover:bg-muted text-foreground"}`}>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedCategory(null)}
+                                        className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${!selectedCategory
+                                            ? "bg-primary text-primary-foreground"
+                                            : "hover:bg-muted text-foreground"}`}
+                                    >
                                         All Products ({products.length})
                                     </button>
                                     {categories.map((category) => {
                                         const count = products.filter((p) => p.category === category.id).length;
-                                        return (<button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm flex items-center gap-2 ${selectedCategory === category.id
-                                            ? "bg-primary text-primary-foreground"
-                                            : "hover:bg-muted text-foreground"}`}>
-                                            <span>{category.icon}</span>
-                                            <span className="flex-1">{category.name}</span>
-                                            <span className="text-xs opacity-70">({count})</span>
-                                        </button>);
+                                        return (
+                                            <button
+                                                key={category.id}
+                                                type="button"
+                                                onClick={() => setSelectedCategory(category.id)}
+                                                className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm flex items-center gap-2 ${selectedCategory === category.id
+                                                    ? "bg-primary text-primary-foreground"
+                                                    : "hover:bg-muted text-foreground"}`}
+                                            >
+                                                <span>{category.icon}</span>
+                                                <span className="flex-1">{category.name}</span>
+                                                <span className="text-xs opacity-70">({count})</span>
+                                            </button>);
                                     })}
                                 </div>
                             </div>

@@ -49,6 +49,7 @@
     "lucide-react": "^0.462.0",
     "next": "^16.0.7",
     "next-themes": "^0.3.0",
+    "pdf-export-images": "^1.2.0",
     "react": "^19.2.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.2.1",
@@ -59,6 +60,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.9",
+    "yet-another-react-lightbox": "^3.27.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
