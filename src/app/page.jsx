@@ -1,12 +1,28 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Shield, Package, Wrench, Truck, Users, ArrowRight, CheckCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
 import TrustBadge from "@/components/TrustBadge";
 import Layout from "@/components/layout/Layout";
-import { featuredProducts, generalWhatsAppLink } from "@/data/products";
+import { fetchFeaturedProducts } from "@/data/productsClient";
+import { generalWhatsAppLink } from "@/data/products";
 
 export default function Home() {
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadFeaturedProducts() {
+            setLoading(true);
+            const products = await fetchFeaturedProducts();
+            setFeaturedProducts(products);
+            setLoading(false);
+        }
+        loadFeaturedProducts();
+    }, []);
     const trustBadges = [
         {
             icon: Shield,
@@ -105,9 +121,15 @@ export default function Home() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {featuredProducts.slice(0, 8).map((product) => (<ProductCard key={product.id} product={product} />))}
-                    </div>
+                    {loading ? (
+                        <div className="text-center py-8">
+                            <p className="text-muted-foreground">Loading products...</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {featuredProducts.slice(0, 8).map((product) => (<ProductCard key={product.id} product={product} />))}
+                        </div>
+                    )}
 
                     <div className="text-center mt-10">
                         <Button variant="outline" size="lg" asChild>

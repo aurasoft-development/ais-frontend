@@ -6,12 +6,31 @@ import Layout from "@/components/layout/Layout";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { products, categories } from "@/data/products";
+import { fetchProducts, fetchCategories } from "@/data/productsClient";
 
 const Products = () => {
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [showFilters, setShowFilters] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    // Load data on mount
+    useEffect(() => {
+        async function loadData() {
+            setLoading(true);
+            const [productsData, categoriesData] = await Promise.all([
+                fetchProducts(),
+                fetchCategories(),
+            ]);
+            setProducts(productsData);
+            setCategories(categoriesData);
+            setLoading(false);
+        }
+        loadData();
+    }, []);
+
     // Scroll to top of product list when category change
     useEffect(() => {
         const productSection = document.getElementById("products-start");
@@ -28,7 +47,7 @@ const Products = () => {
                 product.description.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesSearch;
         });
-    }, [selectedCategory, searchQuery]);
+    }, [products, selectedCategory, searchQuery]);
     const clearFilters = () => {
         setSelectedCategory(null);
         setSearchQuery("");
@@ -95,11 +114,10 @@ const Products = () => {
                                                 key={category.id}
                                                 type="button"
                                                 onClick={() => setSelectedCategory(category.id)}
-                                                className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm flex items-center gap-2 ${selectedCategory === category.id
+                                                className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm flex items-center justify-between ${selectedCategory === category.id
                                                     ? "bg-primary text-primary-foreground"
                                                     : "hover:bg-muted text-foreground"}`}
                                             >
-                                                <span>{category.icon}</span>
                                                 <span className="flex-1">{category.name}</span>
                                                 <span className="text-xs opacity-70">({count})</span>
                                             </button>);
@@ -110,25 +128,33 @@ const Products = () => {
 
                         {/* Products Grid */}
                         <div className="flex-1">
-                            {/* Results Count */}
-                            <div className="mb-6 flex items-center justify-between">
-                                <p className="text-muted-foreground">
-                                    Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> products
-                                    {selectedCategory && (<span> in <span className="font-semibold text-foreground">
-                                        {categories.find(c => c.id === selectedCategory)?.name}
-                                    </span></span>)}
-                                </p>
-                            </div>
+                            {loading ? (
+                                <div className="text-center py-16">
+                                    <p className="text-muted-foreground">Loading products...</p>
+                                </div>
+                            ) : (
+                                <>
+                                    {/* Results Count */}
+                                    <div className="mb-6 flex items-center justify-between">
+                                        <p className="text-muted-foreground">
+                                            Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> products
+                                            {selectedCategory && (<span> in <span className="font-semibold text-foreground">
+                                                {categories.find(c => c.id === selectedCategory)?.name}
+                                            </span></span>)}
+                                        </p>
+                                    </div>
 
-                            {filteredProducts.length > 0 ? (<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                                {filteredProducts.map((product) => (<ProductCard key={product.id} product={product} />))}
-                            </div>) : (<div className="text-center py-16 bg-card rounded-xl border border-border">
-                                <p className="text-xl font-semibold text-foreground mb-2">No products found</p>
-                                <p className="text-muted-foreground mb-4">Try adjusting your search or filters</p>
-                                <Button variant="outline" onClick={clearFilters}>
-                                    Clear Filters
-                                </Button>
-                            </div>)}
+                                    {filteredProducts.length > 0 ? (<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                                        {filteredProducts.map((product) => (<ProductCard key={product.id} product={product} />))}
+                                    </div>) : (<div className="text-center py-16 bg-card rounded-xl border border-border">
+                                        <p className="text-xl font-semibold text-foreground mb-2">No products found</p>
+                                        <p className="text-muted-foreground mb-4">Try adjusting your search or filters</p>
+                                        <Button variant="outline" onClick={clearFilters}>
+                                            Clear Filters
+                                        </Button>
+                                    </div>)}
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run copy-assets && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-assets": "node scripts/copy-assets.js",
+    "setup": "npm run copy-assets"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

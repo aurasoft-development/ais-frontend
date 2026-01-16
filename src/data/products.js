@@ -13,12 +13,12 @@ import reflectiveJacket from "@/assets/products/jackets-vests/reflective-jacket.
 import n95Mask from "@/assets/products/masks-caps/n95-mask.jpg";
 import bouffantCap from "@/assets/products/masks-caps/bouffant-cap.jpg";
 export const categories = [
-    { id: "safety-shoes", name: "Safety Shoes & Footwear", icon: "👟" },
-    { id: "gloves", name: "Gloves", icon: "🧤" },
-    { id: "helmets", name: "Helmets & Head Protection", icon: "⛑️" },
-    { id: "masks-caps", name: "Masks, Caps & Wearables", icon: "😷" },
-    { id: "jackets-vests", name: "Jackets & Vests", icon: "🦺" },
-    { id: "fire-lockout", name: "Fire & Lockout Equipment", icon: "🔥" },
+    { id: "safety-shoes", name: "Safety Shoes & Footwear" },
+    { id: "gloves", name: "Gloves" },
+    { id: "helmets", name: "Helmets & Head Protection" },
+    { id: "masks-caps", name: "Masks, Caps & Wearables" },
+    { id: "jackets-vests", name: "Jackets & Vests" },
+    { id: "fire-lockout", name: "Fire & Lockout Equipment" },
 ];
 export const products = [
     // Safety Shoes & Footwear

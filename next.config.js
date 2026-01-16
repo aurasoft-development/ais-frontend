@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'export',
+    // Removed 'output: export' to enable API routes for admin panel
+    // If you need static export, deploy without admin features
     reactStrictMode: true,
     transpilePackages: ['lucide-react'], // Sometimes needed for icons
     images: {

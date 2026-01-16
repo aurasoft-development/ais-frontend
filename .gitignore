@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .next/
+
+# Admin copied assets (can be regenerated)
+public/assets/products/
