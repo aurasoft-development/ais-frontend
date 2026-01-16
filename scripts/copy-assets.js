@@ -12,6 +12,12 @@ const destDir = path.join(__dirname, "../public/assets/products");
 
 // Function to recursively copy directory
 function copyRecursive(src, dest) {
+  // Check if source directory exists
+  if (!fs.existsSync(src)) {
+    console.log(`Source directory not found: ${src}. Skipping asset copy.`);
+    return;
+  }
+
   // Create destination directory if it doesn't exist
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
@@ -38,7 +44,7 @@ function copyRecursive(src, dest) {
 try {
   console.log("Copying assets from src/assets/products to public/assets/products...");
   copyRecursive(srcDir, destDir);
-  console.log("✓ Assets copied successfully!");
+  console.log("✓ Asset copy process completed!");
 } catch (error) {
   console.error("Error copying assets:", error);
   process.exit(1);
