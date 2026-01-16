@@ -1,12 +1,12 @@
 [build]
   command = "npm install --legacy-peer-deps && npm run build"
   publish = ".next"
-  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**" }
+  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**,.netlify/**,.next/**,netlify.toml" }
 
 [context.production]
   command = "npm install --legacy-peer-deps && npm run build"
-  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**" }
+  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**,.netlify/**,.next/**,netlify.toml" }
 
 [context.deploy-preview]
   command = "npm install --legacy-peer-deps && npm run build"
-  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**" }
+  environment = { SECRETS_SCAN_OMIT_PATHS = "*.md,next.config.js,src/app/admin/**,.netlify/**,.next/**,netlify.toml" }
