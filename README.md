@@ -1,5 +1,17 @@
 # Welcome to your Lovable project
 
+## 🚨 Important: Supabase Setup Required
+
+This project uses **Supabase** for database storage to enable CRUD operations on Netlify. Without Supabase, the admin features won't work in production.
+
+**Quick Setup:** See [SUPABASE_QUICK_START.md](./SUPABASE_QUICK_START.md) (5 minutes)  
+**Detailed Guide:** See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md)
+
+### Why Supabase?
+Netlify uses serverless functions with read-only file systems. Supabase provides a cloud database that persists your product and category data.
+
+---
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID

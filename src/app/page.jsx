@@ -6,6 +6,8 @@ import { Shield, Package, Wrench, Truck, Users, ArrowRight, CheckCircle, Message
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
 import TrustBadge from "@/components/TrustBadge";
+import BrandShowcase from "@/components/BrandShowcase";
+import OfferingsSection from "@/components/OfferingsSection";
 import Layout from "@/components/layout/Layout";
 import { fetchFeaturedProducts } from "@/data/productsClient";
 import { generalWhatsAppLink } from "@/data/products";
@@ -106,6 +108,9 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Brand Showcase - Bata Video */}
+            <BrandShowcase />
+
             {/* Featured Products */}
             <section className="py-16 md:py-24">
                 <div className="container mx-auto px-4">
@@ -185,6 +190,9 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* Our Offerings Section */}
+            <OfferingsSection />
         </Layout>
     );
 };

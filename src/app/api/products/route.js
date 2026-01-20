@@ -1,16 +1,22 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const PRODUCTS_FILE = path.join(process.cwd(), "public/data/products.json");
+import { supabase, TABLES } from "@/lib/supabase";
 
 // GET all products
 export async function GET() {
   try {
-    const data = fs.readFileSync(PRODUCTS_FILE, "utf8");
-    const products = JSON.parse(data);
-    return NextResponse.json(products);
+    const { data: products, error } = await supabase
+      .from(TABLES.PRODUCTS)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json([], { status: 200 });
+    }
+
+    return NextResponse.json(products || []);
   } catch (error) {
+    console.error('Error fetching products:', error);
     return NextResponse.json([], { status: 200 });
   }
 }
@@ -20,17 +26,13 @@ export async function POST(request) {
   try {
     const newProduct = await request.json();
     
-    // Read existing products
-    let products = [];
-    try {
-      const data = fs.readFileSync(PRODUCTS_FILE, "utf8");
-      products = JSON.parse(data);
-    } catch (error) {
-      products = [];
-    }
-
     // Check if product with same ID exists
-    const existingProduct = products.find((p) => p.id === newProduct.id);
+    const { data: existingProduct } = await supabase
+      .from(TABLES.PRODUCTS)
+      .select('*')
+      .eq('id', newProduct.id)
+      .single();
+
     if (existingProduct) {
       return NextResponse.json(
         { 
@@ -42,14 +44,31 @@ export async function POST(request) {
       );
     }
 
-    // Add new product
-    products.push(newProduct);
+    // Add timestamp
+    const productWithTimestamp = {
+      ...newProduct,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
 
-    // Save to file
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    // Insert new product
+    const { data, error } = await supabase
+      .from(TABLES.PRODUCTS)
+      .insert([productWithTimestamp])
+      .select()
+      .single();
 
-    return NextResponse.json(newProduct, { status: 201 });
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: "Failed to create product", details: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(data, { status: 201 });
   } catch (error) {
+    console.error('Error creating product:', error);
     return NextResponse.json(
       { error: "Failed to create product" },
       { status: 500 }

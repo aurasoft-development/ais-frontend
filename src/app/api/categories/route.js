@@ -1,16 +1,22 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const CATEGORIES_FILE = path.join(process.cwd(), "public/data/categories.json");
+import { supabase, TABLES } from "@/lib/supabase";
 
 // GET all categories
 export async function GET() {
   try {
-    const data = fs.readFileSync(CATEGORIES_FILE, "utf8");
-    const categories = JSON.parse(data);
-    return NextResponse.json(categories);
+    const { data: categories, error } = await supabase
+      .from(TABLES.CATEGORIES)
+      .select('*')
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json([], { status: 200 });
+    }
+
+    return NextResponse.json(categories || []);
   } catch (error) {
+    console.error('Error fetching categories:', error);
     return NextResponse.json([], { status: 200 });
   }
 }
@@ -20,31 +26,48 @@ export async function POST(request) {
   try {
     const newCategory = await request.json();
     
-    // Read existing categories
-    let categories = [];
-    try {
-      const data = fs.readFileSync(CATEGORIES_FILE, "utf8");
-      categories = JSON.parse(data);
-    } catch (error) {
-      categories = [];
-    }
-
     // Check if category with same ID exists
-    if (categories.find((c) => c.id === newCategory.id)) {
+    const { data: existingCategory } = await supabase
+      .from(TABLES.CATEGORIES)
+      .select('*')
+      .eq('id', newCategory.id)
+      .single();
+
+    if (existingCategory) {
       return NextResponse.json(
-        { error: "Category with this ID already exists" },
+        { 
+          error: "Category with this ID already exists",
+          message: `A category with ID "${newCategory.id}" already exists. Please use a different Category ID.`
+        },
         { status: 400 }
       );
     }
 
-    // Add new category
-    categories.push(newCategory);
+    // Add timestamp
+    const categoryWithTimestamp = {
+      ...newCategory,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
 
-    // Save to file
-    fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(categories, null, 2));
+    // Insert new category
+    const { data, error } = await supabase
+      .from(TABLES.CATEGORIES)
+      .insert([categoryWithTimestamp])
+      .select()
+      .single();
 
-    return NextResponse.json(newCategory, { status: 201 });
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: "Failed to create category", details: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(data, { status: 201 });
   } catch (error) {
+    console.error('Error creating category:', error);
     return NextResponse.json(
       { error: "Failed to create category" },
       { status: 500 }

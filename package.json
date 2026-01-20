@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "copy-assets": "node scripts/copy-assets.js",
-    "setup": "npm run copy-assets"
+    "setup": "npm run copy-assets",
+    "migrate": "node scripts/migrate-to-supabase.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -40,6 +41,7 @@
     "@radix-ui/react-toggle": "^1.1.9",
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@supabase/supabase-js": "^2.90.1",
     "@tanstack/react-query": "^5.83.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -72,6 +74,7 @@
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.21",
+    "dotenv": "^16.6.1",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

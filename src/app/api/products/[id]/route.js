@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const PRODUCTS_FILE = path.join(process.cwd(), "public/data/products.json");
+import { supabase, TABLES } from "@/lib/supabase";
 
 // PUT update product
 export async function PUT(request, { params }) {
@@ -10,26 +7,44 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const updatedProduct = await request.json();
 
-    // Read existing products
-    const data = fs.readFileSync(PRODUCTS_FILE, "utf8");
-    let products = JSON.parse(data);
+    // Add updated timestamp
+    const productUpdate = {
+      ...updatedProduct,
+      updated_at: new Date().toISOString()
+    };
 
-    // Find and update product
-    const index = products.findIndex((p) => p.id === id);
-    if (index === -1) {
+    // Update product
+    const { data, error } = await supabase
+      .from(TABLES.PRODUCTS)
+      .update(productUpdate)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { error: "Product not found" },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Failed to update product", details: error.message },
+        { status: 500 }
+      );
+    }
+
+    if (!data) {
       return NextResponse.json(
         { error: "Product not found" },
         { status: 404 }
       );
     }
 
-    products[index] = { ...products[index], ...updatedProduct };
-
-    // Save to file
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
-
-    return NextResponse.json(products[index]);
+    return NextResponse.json(data);
   } catch (error) {
+    console.error('Error updating product:', error);
     return NextResponse.json(
       { error: "Failed to update product" },
       { status: 500 }
@@ -42,18 +57,23 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
 
-    // Read existing products
-    const data = fs.readFileSync(PRODUCTS_FILE, "utf8");
-    let products = JSON.parse(data);
+    // Delete product
+    const { error } = await supabase
+      .from(TABLES.PRODUCTS)
+      .delete()
+      .eq('id', id);
 
-    // Remove product
-    products = products.filter((p) => p.id !== id);
-
-    // Save to file
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: "Failed to delete product", details: error.message },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error('Error deleting product:', error);
     return NextResponse.json(
       { error: "Failed to delete product" },
       { status: 500 }
